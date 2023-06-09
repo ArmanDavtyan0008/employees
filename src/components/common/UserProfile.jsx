@@ -36,24 +36,24 @@ const handleStepBack = ()=> {
 , [profileId])
 
 
-// useEffect(() => {
-//   fetch(`https://rocky-temple-83495.herokuapp.com/tasks?employeeId=${profileId}`)
-//   .then(res => res.json())
-// .then (res => {
-//   console.log(res)
-//   let array = []
-//   array.push(res)
-//   setTaskData(array)
-// } )
-// console.log(taskData);
-// return () => {
-//   setTaskData([])
-// }
-// }, [profileId])
+useEffect(() => {
+  fetch(`https://rocky-temple-83495.herokuapp.com/tasks?employeeId=${profileId}`)
+  .then(res => res.json())
+.then (res => {
+  console.log(res)
+  // let array = []
+  // res.map(f => array.push())
+  setTaskData(res)
+} )
+console.log(taskData);
+return () => {
+  setTaskData([])
+}
+}, [profileId])
  
- useEffect(() => {
-  console.log(profileId);
- }, [profileId])
+//  useEffect(() => {
+//   console.log(profileId);
+//  }, [profileId])
  
 //  useEffect(() => {
 //   console.log(taskData);
@@ -78,7 +78,7 @@ const handleStepBack = ()=> {
           </TableHead>
           <TableBody>
                 <StyledTableRow key={Math.random()}>
-
+               
                   <StyledTableCell align="left" sx={{ width: "20%" }}>
                     <Typography> {datas.id} </Typography>
                   </StyledTableCell>
@@ -103,6 +103,46 @@ const handleStepBack = ()=> {
           </TableBody>
         </Table>
       </TableContainer>
+      <Typography variant='h3' sx={{mt:4}}> ID TASKS </Typography> 
+      <TableContainer component={Paper}>
+        <Table sx={{minWidth:900, mt: 8 }} aria-label="customized table">
+          <TableHead>
+            <TableRow>
+              <StyledTableCell sx={{ width: "20%" }}>ID</StyledTableCell>
+              <StyledTableCell sx={{ width: "20%" }}>NAME</StyledTableCell>
+              <StyledTableCell sx={{ width: "20%" }}>START DATE</StyledTableCell>
+              <StyledTableCell sx={{ width: "20%" }}>END DATE </StyledTableCell>
+              <StyledTableCell sx={{ width: "20%" }}>DESCRIPTION</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+          {taskData.map((task) => (
+    <StyledTableRow key={task.id}>
+      <StyledTableCell align="left" sx={{ width: "20%" }}>
+        <Typography>{task.id}</Typography>
+      </StyledTableCell>
+
+      <StyledTableCell align="left" sx={{ width: "20%" }}>
+        <Typography>{task.name}</Typography>
+      </StyledTableCell>
+
+      <StyledTableCell align="left" sx={{ width: "20%" }}>
+        <Typography>{task.startDate}</Typography>
+      </StyledTableCell>
+
+      <StyledTableCell align="left" sx={{ width: "20%" }}>
+        <Typography>{task.endDate}</Typography>
+      </StyledTableCell>
+
+      <StyledTableCell align="left" sx={{ width: "20%" }}>
+        <Typography>{task.description}</Typography>
+      </StyledTableCell>
+    </StyledTableRow>
+  ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
     </Box>
     </Box>
   )
